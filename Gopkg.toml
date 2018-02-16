@@ -1,0 +1,27 @@
+[[constraint]]
+  name = "gopkg.in/russross/blackfriday.v2"
+  version = "~2.0.0"
+
+[[constraint]]
+  name = "github.com/google/go-github"
+  version = "15.0.0"
+
+[[constraint]]
+  name = "github.com/microcosm-cc/bluemonday"
+  branch = "master"
+
+[[constraint]]
+  name = "github.com/pkg/errors"
+  version = "~0.8.0"
+
+[[constraint]]
+  name = "github.com/spf13/cobra"
+  version = "~0.0.1"
+
+[[constraint]]
+  name = "github.com/spiegel-im-spiegel/gocli"
+  version = "~0.5.0"
+
+[prune]
+  go-tests = true
+  unused-packages = true
