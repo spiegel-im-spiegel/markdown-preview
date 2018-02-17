@@ -22,12 +22,12 @@ func Run(r io.Reader, opt *options.Options) (io.Reader, error) {
 	var html []byte
 	switch opt.ProcType() {
 	case options.Blackfriday:
-		html, err = renderWIthBlackfriday(md, opt)
+		html, err = renderWithBlackfriday(md, opt)
 		if err != nil {
 			return nil, err
 		}
 	case options.GitHub:
-		html, err = renderWIthGitHub(md)
+		html, err = renderWithGitHub(md)
 		if err != nil {
 			return nil, err
 		}
@@ -50,12 +50,12 @@ func Run(r io.Reader, opt *options.Options) (io.Reader, error) {
 	return bytes.NewReader(html), nil
 }
 
-func renderWIthBlackfriday(md []byte, opt *options.Options) ([]byte, error) {
+func renderWithBlackfriday(md []byte, opt *options.Options) ([]byte, error) {
 	renderer := blackfriday.NewHTMLRenderer(blackfriday.HTMLRendererParameters{Flags: opt.HTMLFlags(), FootnoteReturnLinkContents: "&#x23CE;"})
 	return blackfriday.Run(md, blackfriday.WithExtensions(opt.Extensions()), blackfriday.WithRenderer(renderer)), nil
 }
 
-func renderWIthGitHub(md []byte) ([]byte, error) {
+func renderWithGitHub(md []byte) ([]byte, error) {
 	client := github.NewClient(nil)
 	opt := &github.MarkdownOptions{Mode: "gfm", Context: "google/go-github"}
 	body, _, err := client.Markdown(context.Background(), string(md), opt)
