@@ -17,8 +17,8 @@ func ReadMarkdown(r io.Reader) ([]byte, string, error) {
 		buf.WriteString(str)
 		buf.WriteString("\n")
 		str = strings.TrimLeft(str, " \t")
-		if strings.HasPrefix(str, "# ") {
-			title = strings.TrimLeft(str[2:], " \t")
+		if strings.HasPrefix(str, "# ") && len(title) == 0 {
+			title = strings.Trim(str[2:], " \t")
 		}
 	}
 	return buf.Bytes(), title, scanner.Err()
