@@ -7,6 +7,8 @@ import (
 	"github.com/spiegel-im-spiegel/markdown-preview/facade"
 )
 
+//go:generate go-assets-builder -p data -s="/data/assets" -o data/assets.go data/assets/
+
 func main() {
 	facade.Execute(
 		rwi.New(

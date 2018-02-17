@@ -4,10 +4,14 @@
 
 [[constraint]]
   name = "github.com/google/go-github"
-  version = "15.0.0"
+  version = "~15.0.0"
 
 [[constraint]]
   name = "github.com/microcosm-cc/bluemonday"
+  branch = "master"
+
+[[constraint]]
+  name = "github.com/jessevdk/go-assets"
   branch = "master"
 
 [[constraint]]
