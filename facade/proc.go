@@ -1,6 +1,7 @@
 package facade
 
 import (
+	"io"
 	"os"
 
 	"github.com/spf13/cobra"
@@ -52,6 +53,10 @@ func newProcCmd() *cobra.Command {
 			if len(css) > 0 {
 				opt.SetCSS(css)
 			}
+			outPath, err := cmd.Flags().GetString("output")
+			if err != nil {
+				return err
+			}
 
 			reader := cui.Reader()
 			if len(args) > 0 {
@@ -66,12 +71,23 @@ func newProcCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			cui.WriteFrom(html)
+
+			if len(outPath) > 0 {
+				file, err := os.OpenFile(outPath, os.O_WRONLY|os.O_CREATE, 0666)
+				if err != nil {
+					return err
+				}
+				defer file.Close()
+				io.Copy(file, html)
+			} else {
+				cui.WriteFrom(html)
+			}
 			return nil
 		},
 	}
 
 	procCmd.Flags().StringP("css", "c", "", "CSS file URL (with --page option)")
+	procCmd.Flags().StringP("output", "o", "", "output file path")
 	procCmd.Flags().BoolP("github", "g", false, "use GitHub Markdown API")
 	procCmd.Flags().BoolP("line-break", "l", false, "translate newlines into line breaks")
 	procCmd.Flags().BoolP("page", "p", false, "generate a complete HTML page")
