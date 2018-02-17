@@ -19,7 +19,7 @@ builds:
   - "6"
   main: .
   ldflags: -s -w -X main.Version={{ .Version }}
-  binary: gpgpdump
+  binary: markdown-preview
 
 archive:
   format: tar.gz
